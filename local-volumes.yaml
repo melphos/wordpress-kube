@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv-2
+  name: blog-mysql
   labels:
     type: local
 spec:
