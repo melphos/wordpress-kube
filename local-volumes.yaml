@@ -19,7 +19,9 @@ metadata:
   name: blog-data-claim
   labels:
     app: wordpress
+    type: local
 spec:
+  storageClassName: "manual"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -33,7 +35,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: ""
+  storageClassName: "manual"
   capacity:
     storage: 4Gi
   accessModes:
@@ -47,7 +49,9 @@ metadata:
   name: blog-mysql-claim
   labels:
     app: wordpress
+    type: local
 spec:
+  storageClassName: "manual"
   accessModes:
     - ReadWriteOnce
   resources:
