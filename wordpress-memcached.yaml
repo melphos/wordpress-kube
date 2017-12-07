@@ -1,4 +1,16 @@
 apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-memcached
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 11211
+  selector:
+    app: wordpress
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: memcached
