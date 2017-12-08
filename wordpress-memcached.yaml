@@ -3,19 +3,19 @@ kind: Service
 metadata:
   name: memcached
   labels:
-    app: wordpress-memcached
+    app: wordpress
 spec:
   ports:
     - port: 11211
   selector:
-    app: wordpress-memcached
+    app: memcached
     tier: memcached
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: wordpress-memcached
+    app: wordpress
   name: memcached
   namespace: default
 spec:
@@ -23,14 +23,14 @@ spec:
   selector:
     matchLabels:
       app: wordpress
-      tier: frontend
+      tier: memcached
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: wordpress
-        tier: frontend
+        tier: memcached
     spec:
       containers:
       - image: memcached:1.5.3
