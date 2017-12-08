@@ -16,12 +16,15 @@ RUN set -ex; \
 	docker-php-ext-install gd mysqli opcache 
 # TODO consider removing the *-dev deps and only keeping the necessary lib* packages
 
-RUN pecl install memcached-2.2.0
+RUN pecl install memcached-2.2.0 memcache
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
+RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcached.ini
+
+ENV MEMCACHED_HOST memcached
 
 RUN { \
 		echo 'session.save_handler = "memcached"' ; \
-		echo 'session.save_path = "memcached:11211"' ; \
+		echo "session.save_path = ${MEMCACHED_HOST}:11211" ; \
 	} >> /usr/local/etc/php/conf.d/memcached.ini
 
 # set recommended PHP.ini settings
@@ -39,7 +42,7 @@ RUN a2enmod rewrite expires
 
 VOLUME /var/www/html
 
-ENV WORDPRESS_VERSION 4.8.1
+ENV WORDPRESS_VERSION 4.8.3
 #ENV WORDPRESS_VERSION 4.9.1
 #ENV WORDPRESS_SHA1 892d2c23b9d458ec3d44de59b753adb41012e903
 
